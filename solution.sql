@@ -89,23 +89,92 @@ FROM STATION
 ORDER BY LEN DESC, CITY ASC
 LIMIT 1;
 
--- --- IGNORE ---
-
 /*
 11. Weather Observation Station 6
 Query the list of CITY names starting with vowels (i.e., a, e, i, o, or u) from STATION. Your result cannot contain duplicates.
 where LAT_N is the northern latitude and LONG_W is the western longitude.
 */
 
+#Oracle
+SELECT DISTINCT CITY
+FROM STATION
+WHERE REGEXP_LIKE(CITY, '^[AEIOU]', 'i')
+ORDER BY CITY;
+
 #MySQL
 SELECT DISTINCT CITY
 FROM STATION
-WHERE CITY REGEXP '^[AEIOU]'
+WHERE CITY REGEXP '^[AEIOUaeiou]'
 ORDER BY CITY;
 
-#PostgreSQL
+/*
+12. Weather Observation Station 7
+Query the list of CITY names ending in vowels (i.e., a, e, i, o, or u) from STATION. Your result cannot contain duplicates.
+where LAT_N is the northern latitude and LONG_W is the western longitude.
+*/
+
+#MySQL
 SELECT DISTINCT CITY
 FROM STATION
-WHERE CITY ~* '^[AEIOU]'
+WHERE CITY REGEXP '[AEIOUaeiou]$'
+ORDER BY CITY; 
+
+#Oracle
+SELECT DISTINCT CITY
+FROM STATION
+WHERE REGEXP_LIKE(CITY, '[AEIOU]$', 'i')
 ORDER BY CITY;
 
+/*
+13. Weather Observation Station 8
+Query the list of CITY names from STATION which have vowels (i.e., a, e, i, o, and u) as both their first and last characters. Your result cannot contain duplicates.
+where LAT_N is the northern latitude and LONG_W is the western longitude.
+*/
+
+#MySQL
+SELECT DISTINCT CITY
+FROM STATION
+WHERE CITY REGEXP '^[AEIOUaeiou].*[AEIOUaeiou]$'
+ORDER BY CITY;
+
+#Oracle
+SELECT DISTINCT CITY
+FROM STATION
+WHERE REGEXP_LIKE(CITY, '^[AEIOU].*[AEIOU]$', 'i')
+ORDER BY CITY;
+
+/*
+14. Weather Observation Station 9
+Query the list of CITY names from STATION that do not start with vowels. Your result cannot contain duplicates.
+where LAT_N is the northern latitude and LONG_W is the western longitude.
+*/
+
+#MySQL
+SELECT DISTINCT CITY
+FROM STATION
+WHERE CITY REGEXP '^[^AEIOUaeiou]'
+ORDER BY CITY;
+
+#Oracle
+SELECT DISTINCT CITY
+FROM STATION
+WHERE REGEXP_LIKE(CITY, '^[^AEIOU]', 'i')
+ORDER BY CITY;  
+
+/*
+15. Weather Observation Station 10
+Query the list of CITY names from STATION that do not end with vowels. Your result cannot contain duplicates.
+where LAT_N is the northern latitude and LONG_W is the western longitude.
+*/      
+
+#MySQL
+SELECT DISTINCT CITY
+FROM STATION
+WHERE CITY REGEXP '[^AEIOUaeiou]$'  
+ORDER BY CITY;
+
+#Oracle
+SELECT DISTINCT CITY
+FROM STATION        
+WHERE REGEXP_LIKE(CITY, '[^AEIOU]$', 'i')
+ORDER BY CITY;
